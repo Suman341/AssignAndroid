@@ -1,0 +1,2 @@
+include ':app', ':psnwearable'
+rootProject.name='print-station'
