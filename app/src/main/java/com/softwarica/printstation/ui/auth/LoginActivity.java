@@ -31,7 +31,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-
+    private PrefManager prefManager;
 
     private TextInputEditText editTextEmail;
     private TextInputEditText editTextPassword;
@@ -57,11 +57,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
 
         switch (view.getId()) {
+            case R.id.signUpButton: {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                //VIBRATION IN USE
+                vibrator.vibrate(50);
+                break;
+            }
             case R.id.loginButton: {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-
-
+                if (validate(email, password)) loginUser(email, password);
+                //VIBRATION IN USE
+                vibrator.vibrate(50);
                 break;
             }
         }
@@ -85,6 +93,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonLogin.setOnClickListener(this);
     }
 
+    private void loginUser(String email, String password) {
+        progressDialog.show();
+        API.service().login(email, password).enqueue(new Callback<ApiResponse<LoginResponse>>() {
+
+            @Override
+            public void onResponse(@NonNull Call<ApiResponse<LoginResponse>> call, @NonNull Response<ApiResponse<LoginResponse>> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful() && null != response.body()){
+
+                    // save the token locally
+                    ((PrintStationApplication)getApplication()).getPrefManager().setToken(response.body().getData().getToken());
+
+                    // notify the user
+                    ((PrintStationApplication)getApplication())
+                            .getNotificationUtil()
+                            .showNotification("Login", "You have been successfully logged in to PrintStation Nepal");
+
+                    // navigate to dashboard
+                    Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(LoginActivity.this, "Either email or password is incorrect", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+
+            @Override
+            public void onFailure(@NonNull Call<ApiResponse<LoginResponse>> call, @NonNull Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(LoginActivity.this, "Either email or password is incorrect", Toast.LENGTH_SHORT).show();
+                editTextEmail.requestFocus();
+            }
+        });
+
+    }
 
     private boolean validate(String email, String password) {
 
