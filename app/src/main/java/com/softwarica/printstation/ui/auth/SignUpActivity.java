@@ -86,7 +86,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 String password = editTextPassword.getText().toString();
                 String confirmPassword = editTextConfirmPassword.getText().toString();
 
-
+                UserEntity user = new UserEntity();
+                user.setProfileImage(encodeImageToBase64(profileImagePath));
+                user.setFirstName(firstName);
+                user.setLastName(lastName);
+                user.setPhone(phone);
+                user.setAddress(address);
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setConfirmPassword(confirmPassword);
+                registerUser(user);
+                break;
             }
             case R.id.profileImage: {
                 if (askPermission()) {
@@ -213,4 +223,85 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         editTextConfirmPassword.setText(null);
     }
 
-};
+    private boolean validate(UserEntity userEntity) {
+        if (TextUtils.isEmpty(userEntity.getProfileImage())) {
+            Toast.makeText(this, "Profile image is required", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(userEntity.getFirstName())) {
+            editTextFirstNameTIL.setError("Enter a first name");
+            editTextFirstNameTIL.requestFocus();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(userEntity.getLastName())) {
+            editTextLastNameTIL.setError("Enter a last name");
+            editTextLastNameTIL.requestFocus();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(userEntity.getAddress())) {
+            editTextAddressTIL.setError("Enter your address");
+            editTextAddressTIL.requestFocus();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(userEntity.getPhone())) {
+            editTextPhoneTIL.setError("Enter your phone number");
+            editPhone.requestFocus();
+            return false;
+        }
+
+        if (userEntity.getPhone().length() != 10) {
+            editTextPhoneTIL.setError("Phone number is invalid");
+            editPhone.requestFocus();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(userEntity.getEmail())) {
+            editTextEmailTIL.setError("Enter a email");
+            editTextEmailTIL.requestFocus();
+            return false;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(userEntity.getEmail()).matches()) {
+            editTextEmailTIL.setError("Invalid email format");
+            editTextEmailTIL.requestFocus();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(userEntity.getPassword())) {
+            editTextPasswordTIL.setError("Enter a password");
+            editTextPasswordTIL.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void registerUser(UserEntity userEntity) {
+        if (!validate(userEntity)) return;
+
+        progressDialog.show();
+        API.service().registerUser(userEntity).enqueue(new Callback<ApiResponse<List<ErrorResponse>>>() {
+            @Override
+            public void onResponse(@NonNull Call<ApiResponse<List<ErrorResponse>>> call, @NonNull Response<ApiResponse<List<ErrorResponse>>> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(SignUpActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    resetUI();
+                    SignUpActivity.this.finish();
+                } else {
+                    Toast.makeText(SignUpActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ApiResponse<List<ErrorResponse>>> call, @NonNull Throwable t) {
+                Toast.makeText(SignUpActivity.this, "Internal server error", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        });
+    }
+}
