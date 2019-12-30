@@ -22,11 +22,11 @@ import com.softwarica.printstation.R;
 import com.softwarica.printstation.api.API;
 import com.softwarica.printstation.api.response.ApiResponse;
 import com.softwarica.printstation.entity.UserEntity;
+import com.softwarica.printstation.ui.profile.EditProfileActivity;
 import com.softwarica.printstation.ui.auth.LoginActivity;
 import com.softwarica.printstation.ui.dashboard.about.AboutUsFragment;
 import com.softwarica.printstation.ui.dashboard.contact.ContactUsFragment;
 import com.softwarica.printstation.ui.dashboard.home.HomeFragment;
-import com.softwarica.printstation.ui.profile.EditProfileActivity;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -108,4 +108,28 @@ public class DashboardActivity extends AppCompatActivity {
                     drawer.closeDrawer(Gravity.LEFT);
                     break;
                 }
+                case R.id.nav_contact_us: {
+                    toolbar.setTitle("Contact Us");
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_container, new ContactUsFragment())
+                            .commitAllowingStateLoss();
+                    drawer.closeDrawer(Gravity.LEFT);
+                    break;
+                }
+            }
+            return false;
+        });
+
+        // header view
+        View headerView = navigationView.getHeaderView(0);
+        profileImage = headerView.findViewById(R.id.profileImageHeader);
+        name = headerView.findViewById(R.id.name);
+        email = headerView.findViewById(R.id.email);
+        Button viewProfile = headerView.findViewById(R.id.viewProfileButton);
+
+        viewProfile.setOnClickListener(v -> {
+            // navigate to Profile
+            startActivity(new Intent(this, EditProfileActivity.class));
+        });
+
 }
