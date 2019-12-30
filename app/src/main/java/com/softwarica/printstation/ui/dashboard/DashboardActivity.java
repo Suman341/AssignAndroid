@@ -90,5 +90,22 @@ public class DashboardActivity extends AppCompatActivity {
         //This is necessary to change the icon of the Drawer Toggle upon state change.
         mDrawerToggle.syncState();
 
-
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.nav_home: {
+                    toolbar.setTitle("PrintStation Nepal");
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_container, new HomeFragment())
+                            .commitAllowingStateLoss();
+                    drawer.closeDrawer(Gravity.LEFT);
+                    break;
+                }
+                case R.id.nav_about_us: {
+                    toolbar.setTitle("About Us");
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_container, new AboutUsFragment())
+                            .commitAllowingStateLoss();
+                    drawer.closeDrawer(Gravity.LEFT);
+                    break;
+                }
 }
