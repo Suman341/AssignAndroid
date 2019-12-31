@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/aboutLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Why choosing us?"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/descLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="We could sit here and tell you that we are a fully liscensed, bonded and insured local moving company with competitive pricing... which is all true.But that's not what our company is all about.\n\t
+\n
+Print Station Nepal is an Custom printing company to any subliment materials. It deals with
+the custom desired photos printing in different subliment materials as customers needs with
+affordable price and best material with warranty included. Our accessories mainly focus with
+the gift items with print design. We believe in providing easy on searching, affordable price and good
+products to the customer. We are keeping update with the new products arrived and
+be the first company to make it arrived in Nepal. "
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/aboutLabel" />
+
+        <TextView
+            android:id="@+id/motoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="*Our motos*"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/descLabel" />
+
+        <TextView
+            android:id="@+id/motodescLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="# Make customer believe the company has got many unique materials than others.\n
+# Go for quality rather quantity."
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/motoLabel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
