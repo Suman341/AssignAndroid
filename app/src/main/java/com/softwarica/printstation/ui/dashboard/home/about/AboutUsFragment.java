@@ -19,7 +19,10 @@ public class AboutUsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_about_us, container, false);
 
-
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getActionBar();
+        if (actionBar != null){
+            actionBar.setTitle("About Us");
+        }
 
         return view;
     }
