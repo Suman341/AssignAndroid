@@ -31,8 +31,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.softwarica.printstation.R;
 import com.softwarica.printstation.api.API;
 import com.softwarica.printstation.api.response.ApiResponse;
-import com.softwarica.printstation.api.response.ErrorResponse;
-import com.softwarica.printstation.api.response.SignUpResponse;
 import com.softwarica.printstation.entity.UserEntity;
 
 import java.io.ByteArrayOutputStream;
