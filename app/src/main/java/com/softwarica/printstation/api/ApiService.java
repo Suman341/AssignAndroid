@@ -4,9 +4,6 @@ import com.softwarica.printstation.api.request.ProductOrderRequest;
 import com.softwarica.printstation.api.response.ApiResponse;
 import com.softwarica.printstation.api.response.ErrorResponse;
 import com.softwarica.printstation.api.response.LoginResponse;
-import com.softwarica.printstation.entity.CategoryEntity;
-import com.softwarica.printstation.entity.OrderEntity;
-import com.softwarica.printstation.entity.Product;
 import com.softwarica.printstation.entity.UserEntity;
 
 import java.util.List;

@@ -9,14 +9,10 @@ import androidx.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.softwarica.printstation.entity.Product;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 
 public class PrefManager {
     private static PrefManager prefManager;
