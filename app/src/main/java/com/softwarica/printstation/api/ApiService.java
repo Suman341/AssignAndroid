@@ -30,4 +30,25 @@ public interface ApiService {
     @PUT("user/profile")
     Call<ApiResponse<UserEntity>> update(@Body UserEntity user);
 
+    @FormUrlEncoded
+    @POST("user/login")
+    Call<ApiResponse<LoginResponse>> login(@Field("email") String email, @Field("password") String password);
+
+    @GET("user/profile")
+    Call<ApiResponse<UserEntity>> getUserProfile();
+
+    @GET("products")
+    Call<ApiResponse<List<Product>>> getProducts(@Query("categoryId") String categoryId);
+
+    @GET("product/{productId}")
+    Call<ApiResponse<Product>> getProduct(@Path("productId") String productId);
+
+    @POST("product/order")
+    Call<ApiResponse<String>> orderProducts(@Body ProductOrderRequest orders);
+
+    @GET("orders")
+    Call<ApiResponse<List<OrderEntity>>> getMyOrders();
+
+    @GET("categories")
+    Call<ApiResponse<List<CategoryEntity>>> getCategories();
 }
