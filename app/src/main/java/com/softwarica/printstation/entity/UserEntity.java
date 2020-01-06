@@ -6,7 +6,7 @@ import com.softwarica.printstation.api.API;
 public class UserEntity {
 
 
-
+    private String _id;
 
     @SerializedName("profileImage")
     private String profileImage;
