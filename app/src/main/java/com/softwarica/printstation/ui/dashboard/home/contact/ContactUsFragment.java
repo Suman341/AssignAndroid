@@ -1,4 +1,4 @@
-package com.softwarica.printstation.ui.dashboard.home.contact;
+package com.softwarica.printstation.ui.dashboard.contact;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,18 @@ import com.softwarica.printstation.R;
 import java.util.List;
 
 public class ContactUsFragment extends Fragment implements OnMapReadyCallback {
+    private GoogleMap mMap;
+    private LatLng printStationPosition = new LatLng(27.732386,85.3172426);
+    private Marker printStationNepalMarker;
 
+    public static Intent getOpenFacebookIntent(Context context, String pageId, String userName) {
+        try {
+            context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + pageId));
+        } catch (Exception e) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + userName));
+        }
+    }
 
     @Nullable
     @Override
