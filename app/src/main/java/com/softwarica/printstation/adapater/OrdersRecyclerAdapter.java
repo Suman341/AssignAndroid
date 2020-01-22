@@ -77,8 +77,6 @@ public class OrdersRecyclerAdapter extends RecyclerView.Adapter<OrdersRecyclerAd
         }catch (Exception e){}
 
 
-
-
     }
 
     @Override
