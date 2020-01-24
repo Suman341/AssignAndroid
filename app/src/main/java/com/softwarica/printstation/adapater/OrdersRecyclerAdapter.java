@@ -91,14 +91,7 @@ public class OrdersRecyclerAdapter extends RecyclerView.Adapter<OrdersRecyclerAd
         private TextView price;
         private TextView status, quantity, orderedAt;
 
-        private Holder(@NonNull View itemView) {
-            super(itemView);
-            productImage = itemView.findViewById(R.id.productImage);
-            productName = itemView.findViewById(R.id.productName);
-            price = itemView.findViewById(R.id.price);
-            status = itemView.findViewById(R.id.status);
-            quantity = itemView.findViewById(R.id.quantity);
-            orderedAt = itemView.findViewById(R.id.orderAt);
+
         }
     }
 }
