@@ -27,7 +27,7 @@ public class NotificationUtil {
         this.context = context;
         this.notificationManagerCompat = NotificationManagerCompat.from(context);
         this.notificationIds = new ArrayList<>();
-
+        createChannel();
     }
     public void showNotification(String title, String body) {
         Notification notification = new NotificationCompat
@@ -46,5 +46,11 @@ public class NotificationUtil {
         this.notificationManagerCompat.cancelAll();
     }
 
-
+    public void createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(DEFAULT_CHANNEL, "Print Station", NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("Print Station nepal");
+            notificationManagerCompat.createNotificationChannel(channel);
+        }
+    }
 }
