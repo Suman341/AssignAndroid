@@ -23,7 +23,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
+        return ProductsFragment.getInstance(categories.get(position));
     }
 
     @Override
