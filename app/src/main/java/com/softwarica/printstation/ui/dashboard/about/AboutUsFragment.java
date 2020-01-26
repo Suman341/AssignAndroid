@@ -1,4 +1,4 @@
-package com.softwarica.printstation.ui.dashboard.home.about;
+package com.softwarica.printstation.ui.dashboard.about;
 
 import android.app.ActionBar;
 import android.os.Bundle;
