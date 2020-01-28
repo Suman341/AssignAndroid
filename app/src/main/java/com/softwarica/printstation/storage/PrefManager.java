@@ -9,10 +9,14 @@ import androidx.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.softwarica.printstation.entity.Product;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 public class PrefManager {
     private static PrefManager prefManager;
@@ -49,8 +53,61 @@ public class PrefManager {
         this.preferences.edit().putString(Constants.KEY_TOKEN, null).apply();
     }
 
+    public void addToCart(Product product) {
+        try {
+            List<Product> products = getOrders();
+
+            boolean hasAlready = false;
+            Iterator<Product> productIterator = products.iterator();
+            while (productIterator.hasNext()){
+                Product p = productIterator.next();
+                if (p.get_id().equals(product.get_id())){
+                    p.setQuantity(p.getQuantity()+1);
+                    hasAlready = true;
+                    break;
+                }
+            }
+            if (!hasAlready) products.add(product);
+            String rawOrders = gson.toJson(products, getType(List.class, Product.class));
+            this.preferences.edit().putString(Constants.KEY_ORDERS, rawOrders).apply();
+        } catch (Exception e) {
+        }
+    }
+
+    public void removeFromCart(Product product) {
+        try {
+            List<Product> products = getOrders();
+            Iterator<Product> iterator = products.iterator();
+            while (iterator.hasNext()) {
+                Product p = iterator.next();
+                if (p.get_id().equals(product.get_id())) iterator.remove();
+            }
+            String rawOrders = gson.toJson(products, getType(List.class, Product.class));
+            this.preferences.edit().putString(Constants.KEY_ORDERS, rawOrders).apply();
+        } catch (Exception e) {
+        }
+    }
+
+    public void updateOrders(List<Product> orders) {
+        try {
+            String rawOrders = gson.toJson(orders, getType(List.class, Product.class));
+            this.preferences.edit().putString(Constants.KEY_ORDERS, rawOrders).apply();
+        } catch (Exception e) {
+        }
+    }
 
 
+    public List<Product> getOrders() {
+        try {
+            String rawOrders = this.preferences.getString(Constants.KEY_ORDERS, "");
+            List<Product> products = this.gson.fromJson(rawOrders, getType(List.class, Product.class));
+            if (products == null) products = new ArrayList<>();
+
+            return products;
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
 
     public void resetOrders() {
         this.preferences.edit().putStringSet(Constants.KEY_ORDERS, new HashSet<>()).apply();
