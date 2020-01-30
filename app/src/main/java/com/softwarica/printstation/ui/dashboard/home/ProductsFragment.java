@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.softwarica.printstation.PrintStationApplication;
 import com.softwarica.printstation.R;
@@ -170,7 +171,7 @@ public class ProductsFragment extends Fragment {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
-                 progressDialog.dismiss();
+                progressDialog.dismiss();
             }
 
             @Override
@@ -195,7 +196,9 @@ public class ProductsFragment extends Fragment {
                         public void onResponse(Call<ApiResponse<String>> call, Response<ApiResponse<String>> response) {
                             if (response.isSuccessful()) {
                                 Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                ((PrintStationApplication) getActivity().getApplication()).getNotificationUtil().showNotification("Order Completed", "Your order has been successful");
+                                ((PrintStationApplication) getActivity().getApplication())
+                                        .getNotificationUtil()
+                                        .showNotification("Order Completed", "Your order has been successful");
                             } else {
                                 Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
                             }
