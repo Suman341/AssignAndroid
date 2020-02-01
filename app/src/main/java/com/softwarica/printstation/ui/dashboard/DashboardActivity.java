@@ -132,4 +132,63 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(new Intent(this, EditProfileActivity.class));
         });
 
+        // logout
+        Button logoutButton = navigationView.findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Logout")
+                    .setMessage("Are you sure to logout the app?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        dialog.dismiss();
+                        ((PrintStationApplication) getApplication()).getPrefManager().clearToken();
+                        startActivity(new Intent(this, LoginActivity.class));
+                        finish();
+
+                        // notify the user
+                        ((PrintStationApplication)getApplication())
+                                .getNotificationUtil()
+                                .showNotification("Logout", "You have been successfully logged out from PrintStation Nepal")
+
+                        ;
+
+                    }).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).create().show();
+
+            //VIBRATION IN USE
+            vibrator.vibrate(50);
+
+
+        });
+
+        getUserProfile();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUserProfile();
+    }
+
+    private void getUserProfile() {
+        API.service().getUserProfile().enqueue(new Callback<ApiResponse<UserEntity>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<UserEntity>> call, Response<ApiResponse<UserEntity>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserEntity userEntity = response.body().getData();
+
+                    Picasso.with(DashboardActivity.this)
+                            .load(userEntity.getProfileImage())
+                            .into(profileImage);
+                    name.setText(userEntity.getFirstName() + " " + userEntity.getLastName());
+                    email.setText(userEntity.getEmail());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<UserEntity>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
 }

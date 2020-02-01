@@ -1,4 +1,4 @@
-package com.softwarica.printstation.ui.dashboard.profile;
+package com.softwarica.printstation.ui.profile;
 
 import android.Manifest;
 import android.app.ProgressDialog;
