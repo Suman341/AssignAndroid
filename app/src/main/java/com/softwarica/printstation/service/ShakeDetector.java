@@ -3,6 +3,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.FloatMath;
 
 public class ShakeDetector implements SensorEventListener {
 

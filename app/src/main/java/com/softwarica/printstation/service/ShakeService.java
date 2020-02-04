@@ -10,6 +10,7 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.IBinder;
 
+
 import com.softwarica.printstation.PrintStationApplication;
 
 public class ShakeService extends Service implements SensorEventListener {

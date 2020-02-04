@@ -5,6 +5,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.softwarica.printstation.BuildConfig;
+import com.softwarica.printstation.api.response.ApiResponse;
+import com.softwarica.printstation.api.response.ErrorResponse;
 import com.softwarica.printstation.storage.PrefManager;
 
 import java.io.IOException;

@@ -2,7 +2,9 @@ package com.softwarica.printstation.ui.auth;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -17,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.softwarica.printstation.PrintStationApplication;
 import com.softwarica.printstation.api.response.ApiResponse;
+import com.softwarica.printstation.api.response.LoginResponse;
 import com.softwarica.printstation.storage.PrefManager;
 import com.softwarica.printstation.ui.dashboard.DashboardActivity;
 import com.softwarica.printstation.R;
