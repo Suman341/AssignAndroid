@@ -25,8 +25,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class API {
-    public static String IMAGE_URL = "http://192.168.100.4:5000/";
-    private static String BASE_URL = "http://192.168.100.4:5000/";
+    public static String IMAGE_URL = "http://10.0.2.2:5000/";
+//    public static String IMAGE_URL = "http://192.168.100.4:5000/";
+//    private static String BASE_URL = "http://192.168.100.4:5000/";
+
+    private static String BASE_URL = "http://localhost:5000/";
     private static ApiService apiService;
     private static Retrofit retrofit;
 
