@@ -2,6 +2,11 @@ package com.softwarica.printstation.ui.auth;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -16,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.softwarica.printstation.PrintStationApplication;
 import com.softwarica.printstation.api.response.ApiResponse;
@@ -29,18 +35,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
 
     private PrefManager prefManager;
 
     private TextInputEditText editTextEmail;
     private TextInputEditText editTextPassword;
     private Button buttonLogin;
+    MaterialButton btnlogin;
     private Button btnSignUp;
     Vibrator vibrator;
+    private Sensor proximitySensor;
 
     private ProgressDialog progressDialog;
     private Toolbar toolbar;
+    SensorManager sensorManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +57,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         setContentView(R.layout.activity_login);
 
+
+
         initUI();
+        btnlogin = findViewById(R.id.loginButton);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        proximitySensor=sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        if(proximitySensor ==null){
+            Toast.makeText(this, "not availavble", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -152,5 +170,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(this, proximitySensor,
+                SensorManager.SENSOR_DELAY_NORMAL);
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
+    public final void onSensorChanged(SensorEvent event) {
+        if(event.sensor.getType() ==  Sensor.TYPE_PROXIMITY){
+            //proximity sensor
+            float distance = event.values[0];
+            if(distance > 7){
+                editTextEmail.setText(null);
+                editTextPassword.setText(null);
+            }
+
+            else{
+
+            }
+        }
     }
 }
