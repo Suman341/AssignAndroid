@@ -26,13 +26,21 @@ public class SignUpActivityTest {
 
     @Test
     public void signUpActivityTest() {
+        ViewInteraction edtfirstname = onView(allOf(withId(R.id.firstName), isDisplayed()));
+        ViewInteraction edtlastname = onView(allOf(withId(R.id.lastName), isDisplayed()));
+        ViewInteraction edtaddress = onView(allOf(withId(R.id.address), isDisplayed()));
+        ViewInteraction edtphone = onView(allOf(withId(R.id.phone), isDisplayed()));
         ViewInteraction edtEmail = onView(allOf(withId(R.id.email), isDisplayed()));
-        ViewInteraction edtPassword = onView(allOf(withId(R.id.password), isDisplayed()));
+//        ViewInteraction edtPassword = onView(allOf(withId(R.id.password), isDisplayed()));
         ViewInteraction signupButton = onView(allOf(isDisplayed(), withId(R.id.btnSignUp)));
 
 
-        edtEmail.perform(replaceText("suman@gmail.com"), closeSoftKeyboard());
-        edtPassword.perform(replaceText("suman143"), closeSoftKeyboard());
+        edtfirstname.perform(replaceText("Saroj"), closeSoftKeyboard());
+        edtfirstname.perform(replaceText("shrestha"), closeSoftKeyboard());
+        edtaddress.perform(replaceText("ktm"), closeSoftKeyboard());
+        edtEmail.perform(replaceText("shrestha@gmail.com"), closeSoftKeyboard());
+        edtphone.perform(replaceText("98415847582"), closeSoftKeyboard());
+
 
         signupButton.perform(click());
     }

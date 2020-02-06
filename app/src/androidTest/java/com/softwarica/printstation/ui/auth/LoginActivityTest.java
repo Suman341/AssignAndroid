@@ -29,13 +29,10 @@ public class LoginActivityTest {
         ViewInteraction edtPassword = onView(allOf(withId(R.id.password), isDisplayed()));
         ViewInteraction loginButton = onView(allOf(isDisplayed(), withId(R.id.loginButton)));
 
-
         edtEmail.perform(replaceText("suman@gmail.com"), closeSoftKeyboard());
         edtPassword.perform(replaceText("suman143"), closeSoftKeyboard());
-
         loginButton.perform(click());
     }
 }
-
 
 
