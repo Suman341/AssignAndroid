@@ -1,2 +1,2 @@
-include ':app', ':psnwearable'
+include ':app', ':psnwearable', ':wearable'
 rootProject.name='print-station'
