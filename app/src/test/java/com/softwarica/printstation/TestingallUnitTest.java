@@ -80,4 +80,31 @@ public class TestingallUnitTest {
         }
     }
 
+    @Test
+    public void testGetAllCategory() {
+        Call<ApiResponse<LoginResponse>> loginApiResponseCall = API.service().login("suman@gmail.com", "suman143");
+        Call<ApiResponse<List<CategoryEntity>>> categoriesApiResponseCall = API.service().getCategories();
+        try {
+            Response<ApiResponse<LoginResponse>> loginApiResponseResponse = loginApiResponseCall.execute();
+            assertTrue(loginApiResponseResponse.isSuccessful());
+
+            // save token to local storage
+            PrefManager.service().setToken(loginApiResponseResponse.body().getData().getToken());
+
+            Response<ApiResponse<List<CategoryEntity>>> categorysResponse = categoriesApiResponseCall.execute();
+            assertTrue(categorysResponse.isSuccessful());
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void testLocalStorageToken(){
+        String testToken = "test";
+        PrefManager.service().setToken(testToken);
+
+        assertEquals(testToken, PrefManager.service().token());
+    }
 }
