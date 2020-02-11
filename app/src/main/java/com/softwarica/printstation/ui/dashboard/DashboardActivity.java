@@ -153,8 +153,6 @@ public class DashboardActivity extends AppCompatActivity {
 
                     }).setNegativeButton("No", (dialog, which) -> dialog.dismiss()).create().show();
 
-            //VIBRATION IN USE
-            vibrator.vibrate(50);
 
 
         });
