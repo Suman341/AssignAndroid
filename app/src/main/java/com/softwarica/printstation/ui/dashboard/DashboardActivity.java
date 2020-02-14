@@ -156,7 +156,6 @@ public class DashboardActivity extends AppCompatActivity {
             //VIBRATION IN USE
             vibrator.vibrate(50);
 
-
         });
 
         getUserProfile();
