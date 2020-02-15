@@ -23,6 +23,7 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
+//all at once with wrapping eachother
 
     @POST("user/register")
     Call<ApiResponse<List<ErrorResponse>>> registerUser(@Body UserEntity user);

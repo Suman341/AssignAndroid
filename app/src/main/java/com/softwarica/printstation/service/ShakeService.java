@@ -48,7 +48,8 @@ public class ShakeService extends Service implements SensorEventListener {
         mAccelLast = mAccelCurrent;
         mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z * z));
         float delta = mAccelCurrent - mAccelLast;
-        mAccel = mAccel * 0.9f + delta; // perform low-cut filter
+        mAccel = mAccel * 0.9f + delta;
+        // perform low-cut filter
 
         if (mAccel > 11) {
             ((PrintStationApplication) getApplication()).getNotificationUtil().clearNotification();

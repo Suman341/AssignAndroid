@@ -87,6 +87,7 @@ public class DashboardActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         mDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.app_name, R.string.app_name);
+
         //This is necessary to change the icon of the Drawer Toggle upon state change.
         mDrawerToggle.syncState();
 
